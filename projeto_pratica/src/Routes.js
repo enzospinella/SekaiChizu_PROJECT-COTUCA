@@ -4,7 +4,7 @@
 */
 
 import Home from './components/Home.vue';
-//import Cadastro from './components/Cadastro.vue';
+import Cadastro from './components/CadastroUsuarios.vue';
 //import Contato from './components/Contato.vue'
 import Mapa from './components/Mapa.vue'
 /*
@@ -18,7 +18,7 @@ export const routes = [
 
     { path: '/', component: Home, titulo: 'Home' },
     { path: '/mapa', component: Mapa, titulo: 'Mapa'},
-    //{ path: '/cadastroUsuario', component: Cadastro, titulo: 'Cadastro'},
+    { path: '/cadastroUsuario', component: Cadastro, titulo: 'Cadastro'},
     //{ path: '/contato', component: Contato, titulo: 'Contato' },
     
 ]
