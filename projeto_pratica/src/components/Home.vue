@@ -1,21 +1,13 @@
 <template>
-  <div>
-    <meuMenu></meuMenu>
-  </div>
+  <meuMenu></meuMenu>
 </template>
 
 <script>
 import Menu from './shared/Menu.vue'
-
-
 export default {
-  components: {
-    "meuMenu": Menu,
-  },
-  
-  data () {
-    
-  }
+    components: {
+        'meuMenu': Menu
+    }
 }
 </script>
 

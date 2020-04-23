@@ -4,7 +4,8 @@
 */
 
 import Home from './components/Home.vue';
-import Cadastro from './components/CadastroUsuarios.vue';
+//import Login from './components/LoginUsuario.vue';
+import Login1 from './components/1Login.vue';
 //import Contato from './components/Contato.vue'
 import Mapa from './components/Mapa.vue'
 /*
@@ -16,9 +17,9 @@ A propriedade titulo sera exibida na pagina principal
 */
 export const routes = [
 
-    { path: '/', component: Home, titulo: 'Home' },
+    { path: '', component: Home, titulo: 'Home' },
     { path: '/mapa', component: Mapa, titulo: 'Mapa'},
-    { path: '/cadastroUsuario', component: Cadastro, titulo: 'Cadastro'},
+    { path: '/usuario', component: Login1, titulo: 'Login'},
     //{ path: '/contato', component: Contato, titulo: 'Contato' },
     
 ]

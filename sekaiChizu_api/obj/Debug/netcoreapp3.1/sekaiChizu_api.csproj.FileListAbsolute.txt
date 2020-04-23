@@ -1,0 +1,5 @@
+E:\3ºSemestre\PP II\Arquivos\SekaiChizu_PROJECT-COTUCA\sekaiChizu_api\obj\Debug\netcoreapp3.1\sekaiChizu_api.csprojAssemblyReference.cache
+E:\3ºSemestre\PP II\Arquivos\SekaiChizu_PROJECT-COTUCA\sekaiChizu_api\obj\Debug\netcoreapp3.1\sekaiChizu_api.csproj.CoreCompileInputs.cache
+E:\3ºSemestre\PP II\Arquivos\SekaiChizu_PROJECT-COTUCA\sekaiChizu_api\obj\Debug\netcoreapp3.1\sekaiChizu_api.MvcApplicationPartsAssemblyInfo.cache
+E:\3ºSemestre\PP II\Arquivos\SekaiChizu_PROJECT-COTUCA\sekaiChizu_api\obj\Debug\netcoreapp3.1\sekaiChizu_api.AssemblyInfoInputs.cache
+E:\3ºSemestre\PP II\Arquivos\SekaiChizu_PROJECT-COTUCA\sekaiChizu_api\obj\Debug\netcoreapp3.1\sekaiChizu_api.AssemblyInfo.cs

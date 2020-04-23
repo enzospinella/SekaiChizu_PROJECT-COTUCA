@@ -15,19 +15,18 @@
             </router-link>
           -->
           <div id="itens">
-            <li class="menu-icon">世界<br>地図</li> <!--icone-->
-            <li>Sekai<br>Chizu</li>
+            <li class="menu-icon">世界<br> 地図</li> <!--icone-->
+            <li class="menu-nome">Sekai<br> Chizu</li>
           </div>
 
           
-          <li class="menu-item"><router-link :to="'/'" class="button">Home</router-link></li>
+          <router-link :to="''" class="button"><li class="menu-item">Home</li></router-link>
 
-          <li class="menu-item"><router-link :to="'/cadastroUsuario'" class="button">Cadastro</router-link></li> <!---->
+          <router-link :to="'/usuario'" class="button"><li class="menu-item">Login</li></router-link> <!---->
 
-          <li class="menu-item"><router-link :to="'/contato'" class="button">Contato</router-link></li> <!---->
+          <router-link :to="'/contato'" class="button"><li class="menu-item">Contato</li></router-link> <!---->
 
-
-          <li class="menu-button"><router-link :to="'/mapa'" class="button">Abrir o Chizu</router-link></li>
+          <router-link :to="'/mapa'" class="button"> <li class="menu-button">Abrir o Chizu </li></router-link>
       
       </ul>
     </nav>
@@ -50,19 +49,19 @@ export default {
     background-color: green;
     padding:25px;
     margin: 0;
-    margin-right: 20px;
+    margin-right: 25px;
   }
   .menu {
     list-style-type: none;
     display: flex;
     font-size: 23px;
     height:100%;
-    max-height: 6em;
+    max-height: 100px;
     background-color: rgba(800  , 780, 500, 0.8);
     margin: 0;
     padding: 0;
     align-items: center;
-    background-color: greenyellow;
+    background-color: #e1eaeb;
   }
   .menu-icon {
     color: gold;
@@ -71,16 +70,29 @@ export default {
   .menu-item {
     margin-left: 30px;
     margin-right: 60px;
+    color: greenyellow;
+    font-family: Arial,sans-serif;
+    font-weight:bold;
+  }
+  .menu-nome{
+    font-family:Arial,sans-serif;
+    color:black;
+    font-weight:bold;
   }
   .menu-button { 
-    color: white;
-    width: 100%;
-    max-width: 6em;
-    margin-left: 35%;
+    font-weight: bold;
+    color: greenyellow;
+    width:100%;
     border-radius: 10px;
-    background-color:lightgreen;
-    opacity: 0.7;
+    background-color: #7f7c7c;
     padding: 1em;
+    margin-left: 200%;
+    font-family: Arial,sans-serif;
+    height:15px;
+  }
+  .menu-button:hover{
+    color: #39bfd7;
+    background: #f7f7f7;
   }
   .button {
     text-decoration: none;
