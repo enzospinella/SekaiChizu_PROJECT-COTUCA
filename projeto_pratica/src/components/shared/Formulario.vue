@@ -2,7 +2,7 @@
   <div class="login">
       <form>
           <label class="login-label">Email: </label>
-          <input type="text" class="login-email">
+          <input  type="text" class="login-email">
           <label class="login-label">Senha: </label>
           <input type="password" class="login-senha">
 
@@ -13,7 +13,9 @@
 
 <script>
 export default {
-
+    data() {
+        return{}
+    } 
 }
 </script>
 

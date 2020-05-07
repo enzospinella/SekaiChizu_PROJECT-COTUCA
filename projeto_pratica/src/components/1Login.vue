@@ -2,20 +2,26 @@
   <div class="container" >
     <a class="links" id="paracadastro"></a>
     <a class="links" id="paralogin"></a>
+   
      
     <div class="content">      
       <!--FORMULÁRIO DE LOGIN-->
       <div id="login">
-        <form method="post" action=""> 
+        <form> 
           <h1>Login</h1> 
+
+          <p style="color: red">
+            
+          </p>
+
           <p> 
-            <label for="nome_login">Seu nome</label>
-            <input id="nome_login" name="nome_login" required="required" type="text" placeholder="ex. mateus.vazquez@gmail.com"/>
+            <label for="email-login">Seu E-Mail</label>
+            <input id="email-login" v-model="email" required="required" type="text" placeholder="ex. mateus.vazquez@gmail.com"/>
           </p>
            
           <p> 
-            <label for="email_login">Seu e-mail</label>
-            <input id="email_login" name="email_login" required="required" type="password" placeholder="ex. senha" /> 
+            <label for="senha_login">Sua Senha</label>
+            <input id="senha_login" v-model="senha" required="required" type="password" placeholder="ex. senha" /> 
           </p>
            
           <p> 
@@ -24,7 +30,7 @@
           </p>
            
           <p> 
-            <input type="submit" value="Logar" /> 
+            <button v-on:click="logar">Logar</button>
           </p>
            
           <p class="link">
@@ -35,26 +41,35 @@
       </div>
 
       <div id="cadastro">
-        <form method="post" action=""> 
+        <form> 
           <h1>Cadastro</h1> 
-           
+          
+          <p style="color: red">
+            {{ erroNoCadastro }}
+          </p>
+
           <p> 
             <label for="nome_cad">Seu nome</label>
-            <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="nome" />
+            <input id="nome_cad" v-model="nome" required="required" type="text" placeholder="nome" />
+          </p>
+
+          <p> 
+            <label for="sobreNome_cad">Seu sobrenome</label>
+            <input id="sobreNome_cad" v-model="sobreNome" required="required" type="text" placeholder="Sobrenome" />
           </p>
            
           <p> 
             <label for="email_cad">Seu e-mail</label>
-            <input id="email_cad" name="email_cad" required="required" type="email" placeholder="contato@htmlecsspro.com"/> 
+            <input id="email_cad" v-model="email" required="required" type="email" placeholder="enzo.spinella@gmail.com"/> 
           </p>
            
           <p> 
             <label for="senha_cad">Sua senha</label>
-            <input id="senha_cad" name="senha_cad" required="required" type="password" placeholder="ex. 1234"/>
+            <input id="senha_cad" v-model="senha" required="required" type="password" placeholder="ex. 1234"/>
           </p>
            
           <p> 
-            <input type="submit" value="Cadastrar"/> 
+            <button v-on:click="cadastrar">Cadastrar</button>
           </p>
            
           <p class="link">  
@@ -74,9 +89,82 @@ import Menu from './shared/Menu.vue'
 export default {
     components: {
         'login': Login,
-        'meuMenu': Menu
+        'meuMenu': Menu,
     },
     data() {
+      return {
+        usuarios: [],
+        entrou: false,
+        email: "",
+        senha: "",
+        nome: "",
+        sobreNome: "",
+        codUsuario: 0,
+        erroNoCadastro: ""
+      }
+    },
+    created() {
+      this.$http.get("http://localhost:5000/usuario")
+                  .then(res => res.json())
+                  .then (
+                    dadosRetornados => (this.usuarios = dadosRetornados),
+                    err => console.log(err),
+                  );
+    },
+    methods: {
+      logar: function() {
+        //coleta a tabela de usuarios
+        //compara o email de cada usuario com os usuarios da tabela 
+        for (var usuario of this.usuarios)
+        {
+          if (usuario.email == this.email && usuario.senha == this.senha)
+          {
+            this.entrou = true;
+            this.codUsuario = usuario.id;
+          }
+        }
+        if (this.entrou)
+        {
+          this.$router.push('/usuario/'+ this.codUsuario);
+          //redireciona para a janela do mapa
+          //https://michaelnthiessen.com/redirect-in-vue/
+        }
+      },
+      cadastrar: function() 
+      {
+        alert(this.email);
+        alert(this.senha);
+        alert(this.nome);
+        alert(this.sobreNome);
+        var usuarioCreated;
+        for(var usuario of this.usuarios)
+        {
+         
+          if(usuario.email == this.email)
+          {
+            this.erroNoCadastro = "Este E-mail já foi cadastrado, insira outro";
+            return;
+          }
+          
+          if(usuario.nome == this.nome && usuario.sobreNome == this.sobreNome)
+          {
+            this.erroNoCadastro = "Este Nome já está em uso, escolha outro";
+            return;
+          }
+        }
+        this.$http.post("http://localhost:5000/usuario/cadastroUsuario", 
+        {
+          nome: this.nome,
+          sobreNome: this.sobreNome,
+          senha: this.senha,
+          email: this.email
+        })
+        .then (
+          usuarioCriado => (usuarioCreated = usuarioCriado),
+          err => console.log(err)
+        );
+        //this.$router.push('/usuario/'+usuarioCreated.id);
+      }
 
     }
 }
@@ -99,13 +187,18 @@ a{
 a.links{
   display: none;
 }
+.container {
+    height: 100%;
+    width: 100%;
+}
 
 .content{
-    width:500px;
-    max-height: 800px;
-    height:100%;    
-    margin: 0px auto;
-    position: relative; 
+    max-width:500px;
+    width: 100%;
+    height:100%; 
+    position: relative;
+    top: (50% - 400px);
+    left: (50% - 250px);
 }
 
 h1{
@@ -158,7 +251,7 @@ input {
 }
  
 /*estilo dos input,  menos o checkbox */
-input:not([type="checkbox"]){
+input:not([type="checkbox"]), select{
   width: 95%;
   margin-top: 4px;
   padding: 10px;    
@@ -175,7 +268,7 @@ input:not([type="checkbox"]){
 }
  
 /*estilo do botão submit */
-input[type="submit"]{
+button{
   width: 100%!important;
   cursor: pointer;  
   background: yellowgreen;
@@ -193,7 +286,7 @@ input[type="submit"]{
 }
  
 /*estilo do botão submit no hover */
-input[type="submit"]:hover{
+button:hover{
   background: green;
 }
 
@@ -203,7 +296,7 @@ input[type="submit"]:hover{
   color: #7f7c7c;
   left: 0px;
   height: 20px;
-  width: 440px;
+  width: 88%;
   padding: 17px 30px 20px 30px;
   font-size: 16px;
   text-align: right;
@@ -237,9 +330,9 @@ input[type="submit"]:hover{
 #cadastro, 
 #login{
   position: absolute;
-  width: 88%;
   padding: 18px 6% 60px 6%;
-  margin: 0 0 35px 0;
+  width: 88%;
+  margin: 90px 0 90px 400px;
   background: #f7f7f7;
   border: 1px solid rgba(147, 184, 189,0.8);
 
@@ -253,6 +346,9 @@ input[type="submit"]:hover{
   animation-duration: 0.5s;
   animation-timing-function: ease;
   animation-fill-mode: both;
+}
+#cadastro {
+  margin: 50px 0px 50px 400px;
 }
 
 /* Efeito ao clicar no botão ( Ir para Login ) */

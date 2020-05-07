@@ -20,13 +20,13 @@
           </div>
 
           
-          <router-link :to="''" class="button"><li class="menu-item">Home</li></router-link>
+          <router-link :to="'/home'" class="button" exact><li class="menu-item">Home</li></router-link>
 
-          <router-link :to="'/usuario'" class="button"><li class="menu-item">Login</li></router-link> <!---->
+          <router-link :to="'/usuario'" class="button" exact><li class="menu-item">Login</li></router-link> <!---->
 
-          <router-link :to="'/contato'" class="button"><li class="menu-item">Contato</li></router-link> <!---->
+          <router-link :to="'/contato'" class="button" exact><li class="menu-item">Contato</li></router-link> <!---->
 
-          <router-link :to="'/mapa'" class="button"> <li class="menu-button">Abrir o Chizu </li></router-link>
+          <router-link :to="'/mapa'" class="button" exact> <li class="menu-button">Abrir o Chizu </li></router-link>
       
       </ul>
     </nav>
@@ -38,6 +38,7 @@
 export default {
   name: 'Menu',
   data () { 
+    return {}
   }
 }
 </script>
@@ -46,17 +47,17 @@ export default {
   #itens {
     display: flex;
     justify-content: space-between;
-    background-color: green;
-    padding:25px;
+    background-color: gray;
+    padding: 4px 23px 4px 23px;
     margin: 0;
     margin-right: 25px;
   }
   .menu {
     list-style-type: none;
     display: flex;
-    font-size: 23px;
+    font-size: 18px;
     height:100%;
-    max-height: 100px;
+    max-height: 50px;
     background-color: rgba(800  , 780, 500, 0.8);
     margin: 0;
     padding: 0;
@@ -83,12 +84,11 @@ export default {
     font-weight: bold;
     color: greenyellow;
     width:100%;
-    border-radius: 10px;
+    border-radius: 4px;
     background-color: #7f7c7c;
-    padding: 1em;
-    margin-left: 200%;
+    padding: 0.8em;
+    margin-left: 300%;
     font-family: Arial,sans-serif;
-    height:15px;
   }
   .menu-button:hover{
     color: #39bfd7;

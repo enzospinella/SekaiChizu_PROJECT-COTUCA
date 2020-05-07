@@ -36,6 +36,7 @@ namespace projeto_pratica_api
             services.AddScoped<IRepositoryMM_Usuario, RepositoryMM_Usuario>(); 
             services.AddScoped<IRepositoryDadosG, RepositoryDadosG>(); 
             services.AddScoped<IRepositoryDadosH, RepositoryDadosH>(); 
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +45,7 @@ namespace projeto_pratica_api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            };
             
             // O projeto é aberto direto em uma conexão https ||ENZO
             //app.UseHttpsRedirection();

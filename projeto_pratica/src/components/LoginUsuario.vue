@@ -14,7 +14,7 @@ export default {
         'meuMenu': Menu
     },
     data() {
-
+      return {}
     }
 }
 </script>

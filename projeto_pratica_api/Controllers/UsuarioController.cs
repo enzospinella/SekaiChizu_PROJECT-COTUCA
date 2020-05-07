@@ -15,7 +15,20 @@ namespace  projeto_pratica_api.Controllers
         {
             this.Repo = repo;
         }
+
+        //isso vai retornar quando o 8080 fizer a requisicao de usuarios para o 5000 (essa API) 
+        /*
         
+        this.$http.get("http://localhost:5000/usuario")
+                  .then(res => res.json())
+                  .then (
+                    dadosRetornados => (this.usuarios = dadosRetornados),
+                    err => console.log(err)
+                  );
+        o metodo abaixo da a resposta para a requisicao
+                  
+        */
+        //[EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -30,6 +43,11 @@ namespace  projeto_pratica_api.Controllers
                 ex.Message);
             }
         }
+
+        /*
+        Isso sera utilizado para quando uma procura for realizada atravez de
+        */
+
 
         [HttpGet("{codUsuario}")]
         public async Task<IActionResult> Get(int codUsuario)
@@ -72,11 +90,9 @@ namespace  projeto_pratica_api.Controllers
                 var result = await this.Repo.GetAllUsuariosAsyncByCod(codUsuario);
                 if(result==null) return BadRequest();
 
-                result.Id = model.Id;
                 result.nome = model.nome;
                 result.sobreNome = model.sobreNome;
                 result.senha = model.senha;
-                result.nacionalidade = model.nacionalidade;
                 result.email = model.email;
 
                 if(await this.Repo.SaveChangesAsync())
@@ -85,9 +101,9 @@ namespace  projeto_pratica_api.Controllers
                     return Ok(result);
                 }
             }
-            catch
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
             return BadRequest();
         }
