@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div class="paginaMapa">
           <div class='wrapper'>
             <ejs-maps :zoomSettings='zoomSettings' :height='height' :width='width' :mapsAreaSettings='mapsAreaSettings' :itemSelection='procurarPaisPeloClick'>
                 <e-layers>
@@ -85,10 +85,11 @@ export default {
                     colorValuePath:'color',
                 },
             ],*/
-            height: '652',
-            width: '1350',
+            width: '100%',
+            height: '100%',
             shapeSettings: {
-                fill: 'greenyellow',
+                fill: '#74f700',
+                border: { color: '#004211', width: 1}
             },
             paises: []
         }
@@ -123,12 +124,19 @@ export default {
 
 </script>
 <style>
-    .wrapper {
-    width: 100%;
-    height: 100%;
-  }
-  #app {
-    width: 100%;
-    height: 100%;
-  }
+    .paginaMapa{
+        background: #000000;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #0f9b0f, #000000);
+        overflow: hidden;
+    }
+    #maps_control_1{
+        height: 100vh;
+    }
+    #maps_control_1_MapBorder{
+        fill: transparent;
+    }
+    #maps_control_1_MapAreaBorder{
+        fill: transparent;
+    }
 </style>

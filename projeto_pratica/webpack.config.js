@@ -37,8 +37,23 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       }
-    ]
+    ],
+    /*
+    loaders: [
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css-loader')
+      }
+    ]*/
   },
+  /*vue: {
+    loaders: {
+      css: ExtractTextPlugin.extract('css')
+    }
+  },
+  plugins: [
+      new ExtractTextPlugin('styles.css')
+  ],*/
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'

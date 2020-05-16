@@ -22,7 +22,7 @@
           
           <router-link :to="'/home'" class="button" exact><li class="menu-item">Home</li></router-link>
 
-          <router-link :to="'/usuario'" class="button" exact><li class="menu-item">Login</li></router-link> <!---->
+          <router-link :to="'/usuario/login'" class="button" exact><li class="menu-item">Login</li></router-link> <!---->
 
           <router-link :to="'/contato'" class="button" exact><li class="menu-item">Contato</li></router-link> <!---->
 
@@ -47,7 +47,7 @@ export default {
   #itens {
     display: flex;
     justify-content: space-between;
-    background-color: gray;
+    background-color: #0061a3;
     padding: 4px 23px 4px 23px;
     margin: 0;
     margin-right: 25px;
@@ -62,7 +62,7 @@ export default {
     margin: 0;
     padding: 0;
     align-items: center;
-    background-color: #e1eaeb;
+    background-color: #006db8;
   }
   .menu-icon {
     color: gold;
@@ -71,21 +71,21 @@ export default {
   .menu-item {
     margin-left: 30px;
     margin-right: 60px;
-    color: greenyellow;
+    color: #74f700;
     font-family: Arial,sans-serif;
     font-weight:bold;
   }
   .menu-nome{
     font-family:Arial,sans-serif;
-    color:black;
+    color: #008c05;
     font-weight:bold;
   }
   .menu-button { 
     font-weight: bold;
-    color: greenyellow;
+    color: #74f700;
     width:100%;
     border-radius: 4px;
-    background-color: #7f7c7c;
+    background-color: #0061a3;
     padding: 0.8em;
     margin-left: 300%;
     font-family: Arial,sans-serif;

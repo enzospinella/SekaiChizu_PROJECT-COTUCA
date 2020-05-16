@@ -4,8 +4,8 @@
 */
 
 import Home from './components/Home.vue';
-//import Login from './components/LoginUsuario.vue';
-import Login1 from './components/1Login.vue';
+import Login from './components/shared/FormularioLogin.vue'
+import Cadastro from './components/shared/FormularioCadastro.vue'
 //import Contato from './components/Contato.vue'
 import Mapa from './components/Mapa1.vue'
 import pagPais from './components/PaginaDoPais.vue';
@@ -22,7 +22,8 @@ export const routes = [
     { path: '/home', component: Home, titulo: 'Home' },
     { path: '/mapa', component: Mapa, titulo: 'Mapa'},
     { path: '/mapa/paises/:id/:nome', component: pagPais, titulo: 'PaginaPais'},
-    { path: '/usuario', component: Login1, titulo: 'Login'},
+    { path: '/usuario/login', component: Login, titulo: 'Login'},
+    { path: '/usuario/cadastro', component: Cadastro, titulo: 'Cadastro'},
     //{ path: '/contato', component: Contato, titulo: 'Contato' },
     
 ]

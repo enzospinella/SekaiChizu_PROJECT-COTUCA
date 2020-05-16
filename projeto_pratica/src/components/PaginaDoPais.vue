@@ -1,9 +1,9 @@
 <template>
   <div class="paginaPais">
       <div class="mapaPais">
-        <ejs-maps :height='height' :width='width' :zoomSettings='zoomSettings' :mapsAreaSettings='mapsAreaSettings'>
+        <ejs-maps :zoomSettings='zoomSettings' :height='height' :width='width' :mapsAreaSettings='mapsAreaSettings'>
                 <e-layers>
-                    <e-layer :shapeData='shapeData' :shapeSettings='shapeSettings'>
+                    <e-layer :shapeData='shapeData' :shapeSettings='shapeSettings' :zoomSettings='zoomSettings'>
                         <!--<e-markerSettings>
                             <e-markerSetting visible=true 
                             shape="Circle"></e-markerSetting>
@@ -18,26 +18,26 @@
       </div>
       <div class="dados">
         <div class="informacoesGeograficas">     
-                <h2>Informações Geográficas</h2>
+                <h2 @click='dropGeo'>Informações<br>Geográficas</h2>
             
-                <div class="conteudo">
-                    <p>PIB: {{PaisG[0].pib}}</p>
-                    <p>PIB per Capita: {{PaisG[0].pibPerCapita}}</p>
-                    <p>IDH(Indíce de desenvolvimento Humano): {{PaisG[0].idh}}</p>
-                    <p>Moeda: {{PaisG[0].moeda}}</p>
-                    <p>FusoHorario: {{PaisG[0].fusoHorario}}</p>
-                    <p>Idioma: {{PaisG[0].idioma}}</p>
-                    <p>População: {{PaisG[0].populacao}}</p>
-                    <p>Continente: {{PaisG[0].continente}}</p>
+                <div class="conteudo" v-if='visivelGeo'>
+                    <p><b>PIB:</b><br> {{PaisG[0].pib}}</p>
+                    <p><b>PIB per Capita:</b><br> {{PaisG[0].pibPerCapita}}</p>
+                    <p><b>IDH(Indíce de desenvolvimento Humano):</b><br> {{PaisG[0].idh}}</p>
+                    <p><b>Moeda:</b><br> {{PaisG[0].moeda}}</p>
+                    <p><b>FusoHorario:</b><br> {{PaisG[0].fusoHorario}}</p>
+                    <p><b>Idioma:</b><br> {{PaisG[0].idioma}}</p>
+                    <p><b>População:</b><br> {{PaisG[0].populacao}}</p>
+                    <p><b>Continente:</b><br> {{PaisG[0].continente}}</p>
                 </div>
         </div>
         <div class="informacoesHistoricas">
             
-                <h2 @click=drop>Informações Históricas</h2>
-                <div class="conteudo">
-                    <p>Origem: {{PaisH[0].origem}}</p>
-                    <p>Governo: {{PaisH[0].governo}}</p>
-                    <p>Guerras: {{PaisH[0].guerras}}</p>
+                <h2 @click='dropHi'>Informações<br>Históricas</h2>
+                <div class="conteudo" v-if='visivelHi'>
+                    <p><b>Origem:</b><br> {{PaisH[0].origem}}</p>
+                    <p><b>Governo:</b><br> {{PaisH[0].governo}}</p>
+                    <p><b>Guerras:</b><br> {{PaisH[0].guerras}}</p>
                 </div>
             
         </div>
@@ -55,18 +55,18 @@ import mapas from '../map/AllCountries.js';
 export default {
     data() {
         return {
-            height: '500',
-            width: '650',
-            display: 'none',
+            
             pais: [],
             PaisH: [],
             PaisG: [],
+            visivelHi: false,
+            visivelGeo: false,
             shapeSettings: {
-                fill: 'blue',
-                border: 'black',
+                fill: '#74f700',
+                border: { color: '#004211', width: 1}
             },
             mapsAreaSettings: {
-                background: 'black',
+                background: { color: 'lightgray'},
             },
             zoomSettings: {
                 enable: true,
@@ -98,8 +98,11 @@ export default {
         console.log(PaisH[0].origem);
     },
     methods: {
-        drop: function(){
-            
+        dropGeo: function(){
+            this.visivelGeo = !this.visivelGeo;
+        },
+        dropHi: function(){
+            this.visivelHi = !this.visivelHi;
         }
     },
 }
@@ -107,60 +110,68 @@ export default {
 
 <style>
     .paginaPais {
-        width: 100%;
-        height: 100%;
+        overflow: hidden;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: blueviolet;
+        background: #000000;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #0f9b0f, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        height: 100%;
     }
     .mapaPais{
-        width: 45%;
-        height:100%;
+        flex: 50%;
         float: left;
     }
     .dados{
         float: right;
-        width: 50%;
-        height: 100%;
+        flex: 50%;
+        padding: 0;
+        display: flex;
+        justify-content: space-around;
+        margin-left: 2%;
+    }
+    .informacoesHistoricas{
+        float: right;
+        flex: 60%;
+        height: fit-content;
+    }
+    .informacoesHistoricas h2{
+        text-align: center;
+    }
+    .informacoesGeograficas{
+        float: left;
+        flex: 40%;
+        height: fit-content;
+    }
+    .informacoesGeograficas h2{
+        text-align: center;
+    }
+    #maps_control_1{
+        height: 100vh;
     }
     #maps_control_1_MapBorder{
-        fill: goldenrod;
+        fill: transparent;
     }
     #maps_control_1_MapAreaBorder{
-        fill: rgb(95, 93, 93);
+        fill: transparent;
     }
-    .dados h2{
-        background-color: blue;
-        color: white;
-        padding: 16px;
-        border: none;
-        cursor: pointer;
-    }
-    .informacoesGeograficas, .informacoeshistoricas{
-        position: relative;
-        display: inline-block;
+    .dados h2 {
+        color: gray;
+        background-color: lightgray;
         width: 90%;
-    }
-    .conteudo{
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 15px;
     }
     .dados p {
-        color: red;
-        padding: 12px 16px;
+        color: lightgray;
+        padding: 0px 12px 0px 12px;
         text-decoration: none;
-        display: block;
     }
-    .dados p:hover {background-color: #f1f1f1}
-
-    .informacoesGeograficas:hover .conteudo {
-        display:block;
+    @media screen and (max-width: 700px) {
+    .paginaPais {
+        flex-direction: column;
     }
-    .informacoesHistoricas:hover .conteudo {
-        display:block;
-    }
+}
 </style>
