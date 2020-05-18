@@ -114,9 +114,12 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #000000;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #0f9b0f, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        /*background: #000000;  /* fallback for old browsers */
+        /*background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+        /*background: linear-gradient(to right, #0f9b0f, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #0000FF;
+        background: -webkit-linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);
+        background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6); 
         height: 100%;
     }
     .mapaPais{

@@ -32,12 +32,12 @@
           </p>
            
           <p> 
-            <button v-on:click="cadastrar">Cadastrar</button>
+            <button v-on:click="cadastrar" type="button">Cadastrar</button>
           </p>
            
           <p class="link">  
             Já tem conta?
-            <router-link :to="'/usuario/login'" exact>Ir para Login</router-link>
+            <router-link :to="'/usuario/login'" class="router" exact>Ir para Login</router-link>
           </p>
         </form>
       </div>
@@ -53,55 +53,59 @@ export default {
     data() {
         return{
         usuarios: [],
-        usuarioCadastrado: [],
+        usuario: [],
         entrou: false,
         email: "",
         senha: "",
         nome: "",
         sobreNome: "",
-        codUsuario: 0,
         erroNoCadastro: ""
         }
     },
     components: {
       'meuMenu': Menu
     },
+    created() {
+      this.$http.get("http://localhost:5000/usuario")
+                  .then(res => res.json())
+                  .then (
+                    dadosRetornados => (this.usuarios = dadosRetornados),
+                    err => console.log(err),);
+    },
     methods: {
       cadastrar: function() 
       {
-        alert(this.email);
-        alert(this.senha);
-        alert(this.nome);
-        alert(this.sobreNome);
-        var usuarioCreated;
+        var id;
+        var certo = true;
         for(var usuario of this.usuarios)
         {
          
           if(usuario.email == this.email)
           {
             this.erroNoCadastro = "Este E-mail já foi cadastrado, insira outro";
+            certo = false;
             return;
           }
           
           if(usuario.nome == this.nome && usuario.sobreNome == this.sobreNome)
           {
             this.erroNoCadastro = "Este Nome já está em uso, escolha outro";
+            certo = false;
             return;
           }
         }
-
-        this.$http.post("http://localhost:5000/usuario/cadastroUsuario", 
+        alert("CERTO"+certo)
+        if(certo)
         {
-          nome: this.nome,
-          sobreNome: this.sobreNome,
-          senha: this.senha,
-          email: this.email
-        })
-        .then (
-          usuarioCriado => (this.usuario = usuarioCriado),
-          err => console.log(err)
-        );
-        this.$router.push('/usuario/'+this.usuario.id);
+          this.$http.post("http://localhost:5000/usuario/cadastroUsuario", 
+          {
+            nome: this.nome,
+            sobreNome: this.sobreNome,
+            senha: this.senha,
+            email: this.email
+          })
+          .then(res => res.json()).then(response => {this.$router.push('/usuario/'+ response.body.id)}, err => console.log(err));
+        }
       }
     },
 }

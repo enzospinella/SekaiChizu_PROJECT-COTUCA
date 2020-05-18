@@ -72,7 +72,8 @@ namespace  projeto_pratica_api.Controllers
                 this.Repo.Add(model);
 
                 if(await this.Repo.SaveChangesAsync()) {
-                    return Created($"/usuario/{model.Id}", model);
+                    var result = await this.Repo.GetAllUsuariosAsyncByCod(model.Id);
+                    return Ok(result);
                 }
             }
             catch
@@ -89,6 +90,7 @@ namespace  projeto_pratica_api.Controllers
             {
                 var result = await this.Repo.GetAllUsuariosAsyncByCod(codUsuario);
                 if(result==null) return BadRequest();
+
 
                 result.nome = model.nome;
                 result.sobreNome = model.sobreNome;

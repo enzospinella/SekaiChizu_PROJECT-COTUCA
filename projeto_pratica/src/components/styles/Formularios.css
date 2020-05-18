@@ -15,9 +15,9 @@
   .container{
     width: 100vmax;
     height: 100vmin;
-    background: #000000; 
-    background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  
-    background: linear-gradient(to right, #0f9b0f, #000000); 
+    background: #0000FF;
+    background: -webkit-linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);
+    background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,7 @@
   }
   h1{
     font-size: 48px;
-    color: #066a75;
+    color: #006400;
     padding: 10px;
     font-family: Arial,sans-serif;
     font-weight: bold;
@@ -59,7 +59,7 @@ p{
   }
    
   label{
-    color: #405c60;
+    color: #7CFC00;
     position: relative;
   }
   /* placeholder */
@@ -91,7 +91,8 @@ p{
   button{
     width: 100%;
     cursor: pointer;  
-    background: rgb(61, 157, 179);
+    background: #006400;
+    background-image: linear-gradient(to bottom, #90EE90, #4CBB17, #228B22, #008000, #006400);
     padding: 10px;
     color: #fff;
     font-size: 20px;  
@@ -103,11 +104,13 @@ p{
    
   /*estilo do botão submit no hover */
   button:hover{
-    background: #4ab3c6;
+    background: #4ab3c6;background: #006400;
+    background-image: linear-gradient(to top, #90EE90, #4CBB17, #228B22, #008000, #006400);
   }
   .link{
-    background: #e1eaeb;
-    color: #7f7c7c;
+    background: #006400;
+    background-image: linear-gradient(to top, #90EE90, #4CBB17, #228B22, #008000, #006400);
+    color: #7CFC00;
     width: 100%;
     padding: 6%;
     font-size: 16px;
@@ -116,19 +119,15 @@ p{
     border-radius: 5px;
   }
    
-  .link router-link {
+  .router {
     font-weight: bold;
-    background: #f7f8f1;
-    padding: 6%;
-    color: rgb(29, 162, 193);
-    border: 1px solid #cbd518;
-    border-radius: 4px;  
+    text-decoration: none;
+    color: #00FF00;
     transition: all 0.4s  linear;
   }
    
-  .link router-link:hover {
-    color: #39bfd7;
-    background: #f7f7f7;
+  .router:hover {
+    color: #90EE90;
     border: 1px solid #4ab3c6;
   }
 #cadastro, 
@@ -137,9 +136,11 @@ p{
   padding: 6%;
   margin-bottom: auto;
   margin-top: auto;
-  background: #f7f7f7;
+  /*background: #f7f7f7;
   background-color: #0093E9;
-background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);*/
+  background: #006400;
+  background-image: linear-gradient(to bottom, #90EE90, #4CBB17, #228B22, #008000, #006400);
 
   border: 1px solid rgba(147, 184, 189,0.8);
   border-radius: 5px;

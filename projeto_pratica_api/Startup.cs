@@ -18,6 +18,8 @@ namespace projeto_pratica_api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "asOrigens";
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +30,26 @@ namespace projeto_pratica_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:5001", "http://localhost:8080")
+                        .WithMethods("POST","PUT","DELETE","GET");
+                    });
+            });*/
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                        builder =>
+                    {
+                            builder.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                        });
+            });
+
             services.AddDbContext<MapaMundiContext>(
                 x => x.UseSqlServer(Configuration.GetConnectionString("StringConexaoSQLServer"))
             );
@@ -36,7 +58,6 @@ namespace projeto_pratica_api
             services.AddScoped<IRepositoryMM_Usuario, RepositoryMM_Usuario>(); 
             services.AddScoped<IRepositoryDadosG, RepositoryDadosG>(); 
             services.AddScoped<IRepositoryDadosH, RepositoryDadosH>(); 
-            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +74,9 @@ namespace projeto_pratica_api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors("AllowAllHeaders");
 
             app.UseEndpoints(endpoints =>
             {

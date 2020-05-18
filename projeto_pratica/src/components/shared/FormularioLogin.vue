@@ -27,12 +27,12 @@
                 </p>
                 
                 <p> 
-                    <button v-on:click="logar">Logar</button>
+                    <button v-on:click="logar" type="button">Logar</button>
                 </p>
                 
                 <p class="link">
                     Ainda não tem conta?
-                    <router-link :to="'/usuario/cadastro'" exact>Cadastre-se</router-link>
+                    <router-link :to="'/usuario/cadastro'" class="router" exact>Cadastre-se</router-link>
                 </p>
             </form>
       </div>  
