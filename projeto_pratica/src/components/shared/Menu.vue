@@ -1,6 +1,5 @@
 <template>
-  <div id="menu">
-    <nav>
+  <div class="containerMenu">
       <ul class="menu">
           <!--
             <li v-for="route in routes">
@@ -14,22 +13,22 @@
               {{ route.titulo }}
             </router-link>
           -->
-          <div id="itens">
-            <li class="menu-icon">世界<br> 地図</li> <!--icone-->
-            <li class="menu-nome">Sekai<br> Chizu</li>
-          </div>
+          <li class="menu-icon">世界<br> 地図</li> <!--icone-->
+          <li class="menu-nome">Sekai<br> Chizu</li>
+
 
           
-          <router-link :to="'/home'" class="button" exact><li class="menu-item">Home</li></router-link>
+          <router-link :to="'/home'" class="button" exact>Home</router-link>
 
-          <router-link :to="'/usuario/login'" class="button" exact><li class="menu-item">Login</li></router-link> <!---->
+          <router-link :to="'/usuario/login'" class="button" exact>Login</router-link> <!---->
 
-          <router-link :to="'/contato'" class="button" exact><li class="menu-item">Contato</li></router-link> <!---->
-
-          <router-link :to="'/mapa'" class="button" exact> <li class="menu-button">Abrir o Chizu </li></router-link>
+          <router-link :to="'/contato'" class="button" exact>Contato</router-link> <!---->
       
       </ul>
-    </nav>
+      <div>
+        <router-link :to="'/mapa'" class="menu-buttom" exact>Abrir o Chizu</router-link>
+        
+      </div>
   </div>
 </template>
 
@@ -39,63 +38,78 @@ export default {
   name: 'Menu',
   data () { 
     return {}
-  }
+  },
+  props: ['logado'],
 }
 </script>
 
-<style>
-  #itens {
+<style scoped>
+  .containerMenu {
     display: flex;
-    justify-content: space-between;
-    background-color: #0061a3;
-    padding: 4px 23px 4px 23px;
-    margin: 0;
-    margin-right: 25px;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 14pt;
+    width: 100%;
+    height: auto;
+    /*background: #0CAFFF;
+    background: -webkit-linear-gradient(to right, #00FFFF, #B2FFFF, #00BFFF, #0CAFFF);
+    background: linear-gradient(to right, #00FFFF, #B2FFFF, #00BFFF, #0CAFFF); */
+    background-color: transparent;
   }
   .menu {
     list-style-type: none;
-    display: flex;
-    font-size: 18px;
-    height:100%;
-    max-height: 50px;
-    background-color: rgba(800  , 780, 500, 0.8);
-    margin: 0;
-    padding: 0;
+    display: inline-flex;
+    justify-content: flex-start;
     align-items: center;
-    background-color: #006db8;
+    flex: 80%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+  }
+  .menu-icon, .menu-nome{
+    color: gold;
   }
   .menu-icon {
-    color: gold;
-    margin-right: 20px;
+    margin-left: 6%;
   }
-  .menu-item {
-    margin-left: 30px;
-    margin-right: 60px;
-    color: #74f700;
-    font-family: Arial,sans-serif;
-    font-weight:bold;
+  .menu-nome {
+    margin-right: 6%;
   }
-  .menu-nome{
-    font-family:Arial,sans-serif;
-    color: #008c05;
-    font-weight:bold;
+  .menu-buttom { 
+    flex: 15%;
+    background-color: transparent;
+    color: black;
+    margin-right: 5%;
+    text-decoration: none;
+    text-align: center;
+    padding: 1%;
+    border: 1px solid black;
+
+    transition: 0.5s;
   }
-  .menu-button { 
-    font-weight: bold;
-    color: #74f700;
-    width:100%;
-    border-radius: 4px;
-    background-color: #0061a3;
-    padding: 0.8em;
-    margin-left: 300%;
-    font-family: Arial,sans-serif;
-  }
-  .menu-button:hover{
-    color: #39bfd7;
-    background: #f7f7f7;
+  .menu-buttom:hover{
+    background-color: black!important;
+    color: white!important;
   }
   .button {
     text-decoration: none;
+    width: 15%;
     text-align: center;
+    padding: 0 4% 0 4%;
+    margin-left: 3%;
+    color: black;
+
+    transition: 0.5s;
+  }
+  .button:hover {
+    color: white;
+  }
+
+  @media screen and (max-width: 700px) {
+    .containerMenu {
+        flex-direction: column;
+    };
+    .menu {
+      flex-direction: column;
+    };
   }
 </style>

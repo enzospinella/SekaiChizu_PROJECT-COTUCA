@@ -77,7 +77,7 @@ export default {
         }
     },
     created() {
-        this.$http.get("http://localhost:5000/mapa/"+this.$route.params.id)
+        /*this.$http.get("http://localhost:5000/mapa/"+this.$route.params.id)
               .then(res => res.json())
               .then (
                 dadosRetornados => (this.pais = dadosRetornados),
@@ -94,8 +94,7 @@ export default {
                 .then(
                     dadosRetornados => (this.PaisG = dadosRetornados),
                     err => (console.log(err))
-        );
-        console.log(PaisH[0].origem);
+        );*/
     },
     methods: {
         dropGeo: function(){
@@ -114,12 +113,12 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        /*background: #000000;  /* fallback for old browsers */
-        /*background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-        /*background: linear-gradient(to right, #0f9b0f, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: #0000FF;
+        /*background: #0000FF;
         background: -webkit-linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);
-        background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6); 
+        background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);*/
+        background: #005b96;
+        background: -webkit-linear-gradient(to right, #dde8f0, #97cbdc, #018abd, #004581, #001b48);
+        background: linear-gradient(to right, #dde8f0, #97cbdc, #018abd, #004581, #001b48);
         height: 100%;
     }
     .mapaPais{
@@ -131,7 +130,8 @@ export default {
         flex: 50%;
         padding: 0;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
+        align-items: center;
         margin-left: 2%;
     }
     .informacoesHistoricas{
@@ -160,16 +160,23 @@ export default {
         fill: transparent;
     }
     .dados h2 {
-        color: gray;
-        background-color: lightgray;
-        width: 90%;
+        color: black;
+        background-color: green;
+        width: 200px;
         padding: 10px;
         cursor: pointer;
         border-radius: 15px;
+        border: 1px solid black;
+        transition: 0.5s;
+    }
+    .dados h2:hover{
+        background-color: transparent;
+        color: limegreen;
     }
     .dados p {
         color: lightgray;
         padding: 0px 12px 0px 12px;
+        margin-top: 20px;
         text-decoration: none;
     }
     @media screen and (max-width: 700px) {

@@ -113,24 +113,24 @@ export default {
         },
     },
     created() {
-        this.$http.get("http://localhost:5000/mapa")
+        /*this.$http.get("http://localhost:5000/mapa")
                   .then(res => res.json())
                   .then (
                     dadosRetornados => (this.paises = dadosRetornados),
                     err => console.log(err),
-                  );
+                  );*/
     }
 }
 
 </script>
 <style>
     .paginaMapa{
-        /*background: #000000;  /* fallback for old browsers */
-        /*background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-        /*background: linear-gradient(to right, #0f9b0f, #000000);*/
-        background: #0000FF;
+        /*background: #0000FF;
         background: -webkit-linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);
-        background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6); 
+        background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6); */
+        background: #005b96;
+        background: -webkit-linear-gradient(to right, #dde8f0, #97cbdc, #018abd, #004581, #001b48);
+        background: linear-gradient(to right, #dde8f0, #97cbdc, #018abd, #004581, #001b48);
         overflow: hidden;
     }
     #maps_control_1{

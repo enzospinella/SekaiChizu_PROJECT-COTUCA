@@ -15,9 +15,10 @@
   .container{
     width: 100vmax;
     height: 100vmin;
-    background: #0000FF;
+    /*background: #0000FF;
     background: -webkit-linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);
-    background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6); 
+    background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);*/
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
