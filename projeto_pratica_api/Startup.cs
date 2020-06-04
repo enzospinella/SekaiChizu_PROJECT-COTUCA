@@ -18,7 +18,6 @@ namespace projeto_pratica_api
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "asOrigens";
         
         public Startup(IConfiguration configuration)
         {
@@ -58,6 +57,9 @@ namespace projeto_pratica_api
             services.AddScoped<IRepositoryMM_Usuario, RepositoryMM_Usuario>(); 
             services.AddScoped<IRepositoryDadosG, RepositoryDadosG>(); 
             services.AddScoped<IRepositoryDadosH, RepositoryDadosH>(); 
+            services.AddScoped<IRepositoryHistorico, RepositoryHistorico>(); 
+            services.AddScoped<IRepositoryAvaliacoes, RepositoryAvaliacoes>(); 
+            services.AddScoped<IRepositoryLugares, RepositoryLugares>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

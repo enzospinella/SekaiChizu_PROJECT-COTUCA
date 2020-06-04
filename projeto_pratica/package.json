@@ -12,6 +12,7 @@
   "dependencies": {
     "@syncfusion/ej2-vue-maps": "^18.1.43",
     "axios": "^0.19.2",
+    "chart.js": "^2.9.3",
     "es6-promise": "^4.2.8",
     "mapbox-gl": "^1.9.1",
     "vue": "^2.5.11",

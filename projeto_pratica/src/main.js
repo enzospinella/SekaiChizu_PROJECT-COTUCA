@@ -20,6 +20,8 @@ Vue.use(VueRouter);
 Vue.use(VueAxios, axios)
 Vue.use(MapsPlugin);
 
+Vue.prototype.$http = axios
+
 const router = new VueRouter({
   mode: 'history',
   routes: routes

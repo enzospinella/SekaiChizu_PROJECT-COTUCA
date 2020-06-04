@@ -8,7 +8,5 @@ namespace projeto_pratica_api.Data
          // Métodos Get
          Task<MM_Paises[]> GetAllPaisesAsync();
          Task<MM_Paises> GetAllPaisesAsyncByCod(int codPais);
-
-         
     }
 }
