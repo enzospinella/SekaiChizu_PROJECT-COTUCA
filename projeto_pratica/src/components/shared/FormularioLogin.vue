@@ -22,11 +22,6 @@
                 </p>
                 
                 <p> 
-                    <input type="checkbox" name="manterlogado" id="manterlogado" value="" /> 
-                    <label for="manterlogado">Manter-me logado</label>
-                </p>
-                
-                <p> 
                     <button v-on:click="logar" type="button">Logar</button>
                 </p>
                 
@@ -43,11 +38,14 @@
 
 <script>
 import Menu from './Menu.vue';
+import axios from 'axios';
+import {store} from '../../vuex'
 export default {
     data() {
         return{
-            usuarios: [],
+            usuarios: [{}],
             entrou: false,
+            pegouUsuarios: false,
             email: "",
             senha: "",
             nome: "",
@@ -58,20 +56,23 @@ export default {
     components: {
       'meuMenu': Menu,
     },
-    async mounted() {
-      try 
-      {  
-        const response = await axios.get('http://localhost:5000/usuario');  
-        console.log(response);
-        this.usuarios = response.data;    
-      }
-      catch (err) { 
-        console.log(err) 
-      }
-
-      console.log(this.usuarios);
-      this.$store.commit('setUsuarios', this.usuarios);
-      console.log(this.$store.commit('getUsuarios'));
+    beforeCreate() {
+       axios.get('http://localhost:5000/usuario')
+        .then(response => {
+          this.usuarios = response.data;
+          console.log(this.usuarios)
+        })
+        .catch(e => {
+          console.log(e);
+        })
+        this.pegouUsuarios = true;
+    },
+    mounted() {
+      setTimeout(function() {
+        store.commit('setUsuarios', this.usuarios)
+        console.log(store.commit('getUsuarios'))
+        }, 2000
+      )
     },
     methods: {
       logar: function() {
@@ -91,6 +92,19 @@ export default {
           //redireciona para a janela do mapa
           //https://michaelnthiessen.com/redirect-in-vue/
         }
+      },
+      getUsuarios: function() {
+        axios.get('http://localhost:5000/usuario')
+        .then(response => {
+          this.usuarios = response.data;
+        })
+        .catch(e => {
+          console.log(e);
+        })
+
+        console.log(this.usuarios);
+        this.$store.commit('setUsuarios', this.usuarios);
+        console.log(this.$store.commit('getUsuarios'));
       }
     },
 }

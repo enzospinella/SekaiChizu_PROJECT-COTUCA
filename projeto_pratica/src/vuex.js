@@ -13,8 +13,8 @@ const store = new Vuex.Store ({
                                 .then (
                                 dadosRetornados => (state.usuarios = dadosRetornados, console.log(state.usuarios)),
                                 err => console.log(err))),*/
-        setUsuarios(state, usuario) {
-            state.usuarios = usuario;
+        setUsuarios(state, payload) {
+            state.usuarios = payload;
         },
         getUsuarios(state) {
             return state.usuarios;
@@ -24,6 +24,7 @@ const store = new Vuex.Store ({
     },
     actions: {
         getUsuarios: context => context.commit('getUsuarios'),
+        setUsuarios: context => context.commit('setUsuarios'),
     }
 })
 
