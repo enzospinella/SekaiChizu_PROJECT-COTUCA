@@ -48,12 +48,12 @@
 
 <script>
 import Menu from './Menu.vue';
-import {mapGetters, mapState, mapMutations, mapActions} from 'vuex';
+import axios from 'axios';
+import {store} from '../../vuex'
 export default {
     data() {
         return{
         usuarios: [],
-        usuario: [],
         entrou: false,
         email: "",
         senha: "",
@@ -65,30 +65,7 @@ export default {
     components: {
       'meuMenu': Menu
     },
-    /*computed: {
-      ... mapGetters([
-        'usuarios'
-      ])
-    },*/
-    async mounted() {
-      try 
-      {  
-        const response = await axios.get('http://localhost:5000/usuario');  
-        console.log(response);
-        this.usuarios = response.data;    
-      }
-      catch (err) { 
-        console.log(err) 
-      }
-
-      console.log(this.usuarios);
-      this.$store.commit('setUsuarios', this.usuarios);
-      console.log(this.$store.commit('getUsuarios'));
-    },
     methods: {
-      ... mapActions([
-        'getUsuarios'
-      ]),
       cadastrar: function() 
       {
         var certo = true;
@@ -111,15 +88,22 @@ export default {
         }
         if(certo)
         {
-          this.$http.post("http://localhost:5000/usuario/cadastroUsuario", 
+          axios.post("http://localhost:5000/usuario/cadastroUsuario", 
           {
             nome: this.nome,
             sobreNome: this.sobreNome,
             senha: this.senha,
             email: this.email
           })
-          .then(res => res.json()).then(response => {this.$router.push('/usuario/'+response.id)}, err => console.log(err));
+          .then(response => {this.$router.push('/usuario/'+response.data.id); this.setUsuarioConectado(response.data)}, err => console.log(err));
         }
+      },
+      setUsuarios: function(data) {
+          store.dispatch('setUsuarios', data);
+      },
+      setUsuarioConectado: function(data) {
+        store.dispatch('setUsuarioConectado', data);
+        store.dispatch('setConexao', true);
       }
     },
 }
@@ -142,9 +126,6 @@ export default {
   .container{
     width: 100vmax;
     height: 100vmin;
-    /*background: #0000FF;
-    background: -webkit-linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);
-    background: linear-gradient(to right, #6CB4EE, #007FFF, #0000FF, #0039a6);*/
     background-color: transparent;
     display: flex;
     justify-content: center;

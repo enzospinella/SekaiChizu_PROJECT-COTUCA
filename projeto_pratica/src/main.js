@@ -7,6 +7,8 @@ import VueRouter from 'vue-router'
 import {store} from './vuex';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Unicon from 'vue-unicons'
+import { uniArrowToRight } from 'vue-unicons/src/icons'
 
 
 
@@ -20,7 +22,9 @@ Vue.use(VueRouter);
 Vue.use(VueAxios, axios)
 Vue.use(MapsPlugin);
 
-//Vue.prototype.$http = axios
+Unicon.add([uniArrowToRight])
+Vue.use(Unicon)
+
 
 const router = new VueRouter({
   mode: 'history',

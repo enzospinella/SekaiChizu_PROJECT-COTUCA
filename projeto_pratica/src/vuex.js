@@ -5,26 +5,36 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store ({
     state: {
-        usuarios: []
+        usuarios: [],
+        usuarioConectado: {},
+        isConectado: false,
     },
     mutations: {
-        /*getUsuarios: state => (this.$http.get("http://localhost:5000/usuario")
-                                .then(res => res.json())
-                                .then (
-                                dadosRetornados => (state.usuarios = dadosRetornados, console.log(state.usuarios)),
-                                err => console.log(err))),*/
         setUsuarios(state, payload) {
             state.usuarios = payload;
         },
-        getUsuarios(state) {
-            return state.usuarios;
+        setUsuarioConectado(state, payload) {
+            state.usuarioConectado = payload;
+        },
+        setConexao(state, payload) {
+            state.isConectado = payload;
         }
     },
     getters: {
+        getUsuarios(state) {
+            return state.usuarios;
+        },
+        getUsuarioConectado(state) {
+            return state.usuarioConectado;
+        },
+        getConexao(state) {
+            return state.isConectado;
+        }
     },
     actions: {
-        getUsuarios: context => context.commit('getUsuarios'),
-        setUsuarios: context => context.commit('setUsuarios'),
+        setUsuarios({commit}, usuarios){commit('setUsuarios', usuarios)},
+        setUsuarioConectado({commit}, usuarioConectado){commit('setUsuarioConectado', usuarioConectado)},
+        setConexao({commit}, conexao){commit('setConexao', conexao)},
     }
 })
 

@@ -43,9 +43,8 @@ import {store} from '../../vuex'
 export default {
     data() {
         return{
-            usuarios: [{}],
+            usuarios: [],
             entrou: false,
-            pegouUsuarios: false,
             email: "",
             senha: "",
             nome: "",
@@ -56,56 +55,39 @@ export default {
     components: {
       'meuMenu': Menu,
     },
-    beforeCreate() {
+    mounted() {
        axios.get('http://localhost:5000/usuario')
         .then(response => {
           this.usuarios = response.data;
-          console.log(this.usuarios)
+          this.setUsuarios(this.usuarios)
         })
         .catch(e => {
           console.log(e);
         })
-        this.pegouUsuarios = true;
-    },
-    mounted() {
-      setTimeout(function() {
-        store.commit('setUsuarios', this.usuarios)
-        console.log(store.commit('getUsuarios'))
-        }, 2000
-      )
     },
     methods: {
       logar: function() {
         //coleta a tabela de usuarios
         //compara o email de cada usuario com os usuarios da tabela 
-        for (var usuario of this.usuarios)
+        for (var usuario of store.getters['getUsuarios'])
         {
           if (usuario.email == this.email && usuario.senha == this.senha)
           {
             this.entrou = true;
             this.codUsuario = usuario.id;
+            store.dispatch('setUsuarioConectado', usuario);
+            store.dispatch('setConexao', true);
           }
         }
         if (this.entrou)
         {
           this.$router.push('/usuario/'+ this.codUsuario);
-          //redireciona para a janela do mapa
           //https://michaelnthiessen.com/redirect-in-vue/
         }
       },
-      getUsuarios: function() {
-        axios.get('http://localhost:5000/usuario')
-        .then(response => {
-          this.usuarios = response.data;
-        })
-        .catch(e => {
-          console.log(e);
-        })
-
-        console.log(this.usuarios);
-        this.$store.commit('setUsuarios', this.usuarios);
-        console.log(this.$store.commit('getUsuarios'));
-      }
+      setUsuarios: function(data) {
+          store.dispatch('setUsuarios', data);
+      },
     },
 }
 </script>

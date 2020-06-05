@@ -20,26 +20,43 @@
           
           <router-link :to="'/home'" class="button" exact>Home</router-link>
 
-          <router-link :to="'/usuario/login'" class="button" exact>Login</router-link> <!---->
+          <router-link :to="'/usuario/login'" class="button" exact v-if="!conexao">Login</router-link>
+          <router-link :to="'/usuario/'+usuario.id" class="button" exact v-if="conexao">Sua Página</router-link>
 
           <router-link :to="'/contato'" class="button" exact>Contato</router-link> <!---->
       
       </ul>
-      <div>
+      <div class="menuUltimo">
         <router-link :to="'/mapa'" class="menu-buttom" exact>Abrir o Chizu</router-link>
-        
+        <div class="usuario" v-if="conexao">
+          {{usuario.nome}}
+          {{usuario.sobreNome}}
+          <button  class="icones" v-on:click="deslogar"><unicon name="arrow-to-right" fill="white"/></button>
+        </div>
       </div>
   </div>
 </template>
 
 <script>
-
+import {store} from '../../vuex'
 export default {
   name: 'Menu',
   data () { 
-    return {}
+    return {
+      usuario: store.getters['getUsuarioConectado'],
+      conexao: store.getters['getConexao'],
+    }
   },
-  props: ['logado'],
+  methods: {
+    deslogar: function() {
+      if(confirm("Você será deslogado(a)")){
+        store.dispatch('setUsuarioConectado', {});
+        store.dispatch('setConexao', false);
+        this.usuario = {};
+        this.conexao = false;
+      }
+    }
+  }
 }
 </script>
 
@@ -51,9 +68,6 @@ export default {
     font-size: 14pt;
     width: 100%;
     height: auto;
-    /*background: #0CAFFF;
-    background: -webkit-linear-gradient(to right, #00FFFF, #B2FFFF, #00BFFF, #0CAFFF);
-    background: linear-gradient(to right, #00FFFF, #B2FFFF, #00BFFF, #0CAFFF); */
     background-color: transparent;
   }
   .menu {
@@ -61,7 +75,7 @@ export default {
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
-    flex: 80%;
+    flex: 70%;
     margin-bottom: 1%;
     margin-top: 1%;
   }
@@ -75,16 +89,19 @@ export default {
     margin-right: 6%;
   }
   .menu-buttom { 
-    flex: 15%;
-    background-color: transparent;
     color: black;
-    margin-right: 5%;
+    padding: 3%;
+    border: 1px solid black;
     text-decoration: none;
     text-align: center;
-    padding: 1%;
-    border: 1px solid black;
-
     transition: 0.5s;
+  }
+  .menuUltimo {
+    flex: 30%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
   }
   .menu-buttom:hover{
     background-color: black!important;
@@ -102,6 +119,23 @@ export default {
   }
   .button:hover {
     color: white;
+  }
+  .icones {
+    background-color: transparent;
+    margin-left: 3pt;
+    transition: 1s;
+  }
+  .icones:hover {
+    background-color: black;
+    cursor: pointer;
+  }
+  .usuario {
+    display: flex;
+    width: auto;
+    align-items: center;
+    padding: 1%;
+    margin-left: 2%;
+    border: 2px solid black;
   }
 
   @media screen and (max-width: 700px) {
