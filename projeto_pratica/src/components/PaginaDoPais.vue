@@ -47,6 +47,7 @@
 
 <script>
 import Vue from 'vue';
+import axios from 'axios';
 import { MapsPlugin, Zoom, MapsTooltip, MapsAreaSettings, Selection, Border, click, itemSelection } from '@syncfusion/ej2-vue-maps';
 Vue.use(MapsPlugin);
 
@@ -55,7 +56,6 @@ import mapas from '../map/AllCountries.js';
 export default {
     data() {
         return {
-            
             pais: [],
             PaisH: [],
             PaisG: [],
@@ -76,25 +76,28 @@ export default {
             shapeData: mapas.filter(t => t.name === this.$route.params.nome)[0],
         }
     },
-    created() {
-        /*this.$http.get("http://localhost:5000/mapa/"+this.$route.params.id)
-              .then(res => res.json())
-              .then (
-                dadosRetornados => (this.pais = dadosRetornados),
-                err => console.log(err),
-          );
-        this.$http.get("http://localhost:5000/mapa/dadosH/"+this.$route.params.id)
-                .then(res => res.json())
-                .then (
-                    dadosRetornados => (this.PaisH = dadosRetornados),
-                    err => (console.log(err))
-        );
-        this.$http.get("http://localhost:5000/mapa/dadosG/"+this.$route.params.id)
-                .then(res => res.json())
-                .then(
-                    dadosRetornados => (this.PaisG = dadosRetornados),
-                    err => (console.log(err))
-        );*/
+    mounted() {
+        axios.get("http://localhost:5000/mapa/"+this.$router.params.id)
+             .then(response => {
+                 this.pais = response.data;
+             })
+             .catch(err => {
+                 console.log(err);
+             });
+        axios.get("http://localhost:5000/mapa/dadosG/"+this.$router.params.id)
+             .then(response => {
+                 this.PaisG = response.data;
+             })
+             .catch(err => {
+                 console.log(err);
+             });
+        axios.get("http://localhost:5000/mapa/dadosH/"+this.$router.params.id)
+             .then(response => {
+                 this.PaisH = response.data;
+             })
+             .catch(err => {
+                 console.log(err);
+             });
     },
     methods: {
         dropGeo: function(){

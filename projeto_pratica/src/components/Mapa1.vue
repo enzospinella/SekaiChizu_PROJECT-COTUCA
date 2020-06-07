@@ -3,14 +3,14 @@
           <div class='wrapper'>
             <ejs-maps :zoomSettings='zoomSettings' :height='height' :width='width' :mapsAreaSettings='mapsAreaSettings' :itemSelection='procurarPaisPeloClick'>
                 <e-layers>
-                    <e-layer :shapeData='shapeData' :shapeSettings='shapeSettings' :selectionSettings='selectionSettings'>
+                    <e-layer :shapeData='shapeData' :shapeSettings='shapeSettings' :selectionSettings='selectionSettings' :markerClusterSettings='markerClusterSettings' :markerSettings='markerSettings'>
                         <e-markerSettings>
                             <e-markerSetting visible=true 
                             shape="Circle"></e-markerSetting>
-                            <!--<e-markerSetting visible= true :template='contentTemplate' :dataSource ="dataSource1" animationDuration = 0 ></e-markerSetting>
+                            <e-markerSetting visible= true :template='contentTemplate' :dataSource ="dataSource1" animationDuration = 0 ></e-markerSetting>
                             <e-markerSetting visible= true :template='contentTemplate1' :dataSource ="dataSource2" animationDuration = 0 ></e-markerSetting>
                             <e-markerSetting visible= true :template='contentTemplate2' :dataSource ="dataSource3" animationDuration = 0 ></e-markerSetting>
-                            :markerClusterSettings='markerClusterSettings' :markerSettings='markerSettings' -->
+                             
                         </e-markerSettings>
                     </e-layer>
                 </e-layers>
@@ -23,6 +23,7 @@
 import Vue from 'vue';
 import { MapsPlugin, Zoom, MapsTooltip, MapsAreaSettings, Selection, Border, click, itemSelection } from '@syncfusion/ej2-vue-maps';
 import { worldMap } from '../map/world-map.js';
+import axios from 'axios'
 Vue.use(MapsPlugin);
 export default {
     data () 
@@ -54,7 +55,7 @@ export default {
                 mouseWheelZoom : true,
             },
             shapeData: worldMap,
-            /*markerClusterSettings: {
+            markerClusterSettings: {
                 allowClustering: true,
                 allowClusterExpand: true,
                 shape: 'Circle',
@@ -84,7 +85,7 @@ export default {
                     shapeValuePath:'shape',
                     colorValuePath:'color',
                 },
-            ],*/
+            ],
             width: '100%',
             height: '100%',
             shapeSettings: {
@@ -112,13 +113,14 @@ export default {
             this.$router.push('/mapa/paises/'+codPaisEscolhido+'/'+e.shapeData.name);
         },
     },
-    created() {
-        /*this.$http.get("http://localhost:5000/mapa")
-                  .then(res => res.json())
-                  .then (
-                    dadosRetornados => (this.paises = dadosRetornados),
-                    err => console.log(err),
-                  );*/
+    mounted() {
+        axios.get("http://localhost:5000/mapa")
+             .then(response => {
+                 this.paises = response.data;
+             })
+             .catch(err => {
+                 console.log(err);
+             })
     }
 }
 
