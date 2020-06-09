@@ -2,7 +2,7 @@
     <div id="contato">
         <meuMenu></meuMenu>
         <div class="containerContato">
-            <div class="avaliacoes">
+            <div class="avaliar">
                 <h1 class="titulo">Avalie sua experiência</h1>
                 <div class="estrelas">
                     <div v-for="estrela in estrelas">
@@ -14,8 +14,6 @@
                         <label>Deixe a sua Mensagem: </label>
                     </div>
                     <div class="inputs">
-                        <p v-if="this.status != '' " class="status">{{this.status}}</p>
-                        <p v-if="this.status == '' "></p>
                         <textarea placeholder="digite sua mensagem" class="texto" v-model="mensagem"></textarea>
                         <button class="botao" type="button" @click="enviarMsg">ENVIAR</button>
                     </div>
@@ -25,7 +23,17 @@
                 </div>
             </div>
             <div class="histograma">
-                <hist :chart-data="data" :data="data" :options="opcoesHist" v-if="carregou" :styles="cssHist"></hist>
+                <hist :chart-data="data" :data="data" :options="opcoesHist" v-if="carregou" :styles="cssHist" :key="data.datasets[0].data"></hist>
+            </div>
+        </div>
+        <h1 style="text-align: center" v-if="carregou && conexao">Avaliações feitas até hoje</h1>
+        <div class="tentativa">
+            <div class="avaliacoes">
+                <div v-for="avaliacao in infoAvaliacoes" v-if="carregou && conexao" class="boxAvaliacao">
+                    <p><b>{{conectarNomeComInfo(avaliacao.id)}}</b> escreveu uma avaliação em <span>{{avaliacao.dataDeEnvio}}</span></p>
+                    <est :qtdEstrelas="avaliacao.qtdEstrelasDadas"></est>
+                    <q><span>{{avaliacao.mensagem}}</span></q>
+                </div>
             </div>
         </div>
     </div>
@@ -34,6 +42,7 @@
 <script>
 import Menu from '../components/shared/Menu.vue';
 import Histograma from '../components/shared/Histograma.vue';
+import Estrela from '../components/shared/Estrelas.vue'
 
 import axios from 'axios';
 import {store} from '../vuex'
@@ -85,11 +94,14 @@ export default {
             dataDaMensagem: "",
             qtdEstrelas: 0,
             status: '',
+            infoAvaliacoes: [],
+            usuarios: store.getters['getUsuarios'],
         }
     },
     components: {
         'meuMenu': Menu,
-        'hist': Histograma
+        'hist': Histograma,
+        'est': Estrela
     },
     mounted() {
         axios.get("http://localhost:5000/avaliacoes")
@@ -97,27 +109,16 @@ export default {
                 for (var avaliacao of response.data)
                 {
                     var qtd = avaliacao.qtdEstrelas;
-                    if(qtd==0.5)
-                        this.estrelinhas[0].qtd++;
-                    else if(qtd==1)
-                        this.estrelinhas[1].qtd++;
-                    else if(qtd==1.5)
-                        this.estrelinhas[2].qtd++;
-                    else if(qtd==2)
-                        this.estrelinhas[3].qtd++;
-                    else if(qtd==2.5)
-                        this.estrelinhas[4].qtd++;
-                    else if(qtd==3)
-                        this.estrelinhas[5].qtd++;
-                    else if(qtd==3.5)
-                        this.estrelinhas[6].qtd++;
-                    else if(qtd==4)
-                        this.estrelinhas[7].qtd++;
-                    else if(qtd==4.5)
-                        this.estrelinhas[8].qtd++;
-                    else 
-                        this.estrelinhas[9].qtd++;
+                    var obj = {
+                        qtdEstrelasDadas: qtd,
+                        id: avaliacao.idUsuario,
+                        mensagem: avaliacao.mensagem,
+                        dataDeEnvio: avaliacao.dataAvaliacao
+                    }
+                    this.infoAvaliacoes.push(obj);
+                    this.addEstrelas(qtd);
                 }
+                console.log(this.infoAvaliacoes)
                 this.data.datasets[0].data = this.getAvaliacoes();
                 this.carregou = true;
              });
@@ -128,7 +129,7 @@ export default {
                 width: "80%",
                 height: "80%"
             }
-        }
+        },
     },
     methods: {
         mudarEstadoEstrela: function(id) {
@@ -147,7 +148,6 @@ export default {
                     estrela.url = this.estrelaVazia;
                 }
             }
-            console.log(this.qtdEstrelas);
         },
         enviarMsg: function() {
             this.dataDaMensagem = new Date();
@@ -164,7 +164,9 @@ export default {
                 IdUsuario: store.getters['getUsuarioConectado'].id,
             });
             this.mensagem = "";
-            this.status = "ENVIADO!";
+            this.reiniciarEstrelas();
+            this.addEstrelas(this.qtdEstrelas);
+            this.data.datasets[0].data = this.getAvaliacoes();
         }, 
         getAvaliacoes: function() {
             return [
@@ -179,8 +181,42 @@ export default {
                 this.estrelinhas[8].qtd,
                 this.estrelinhas[9].qtd
             ];
+        },
+        addEstrelas: function(qtd) {
+            if(qtd==0.5)
+                this.estrelinhas[0].qtd++;
+            else if(qtd==1)
+                this.estrelinhas[1].qtd++;
+            else if(qtd==1.5)
+                this.estrelinhas[2].qtd++;
+            else if(qtd==2)
+                this.estrelinhas[3].qtd++;
+            else if(qtd==2.5)
+                this.estrelinhas[4].qtd++;
+            else if(qtd==3)
+                this.estrelinhas[5].qtd++;
+            else if(qtd==3.5)
+                this.estrelinhas[6].qtd++;
+            else if(qtd==4)
+                this.estrelinhas[7].qtd++;
+            else if(qtd==4.5)
+                this.estrelinhas[8].qtd++;
+            else 
+                this.estrelinhas[9].qtd++;
+        },
+        reiniciarEstrelas: function() {
+            for (var estrelas of this.estrelas)
+                estrelas.url = this.estrelaVazia;
+        },
+        conectarNomeComInfo: function(id) {
+            for (var usuario of this.usuarios)
+            {
+                console.log(usuario);
+                if(usuario.id==id)
+                    return usuario.nome + " " + usuario.sobreNome;
+            }
         }
-    }
+}
 }
 </script>
 
@@ -190,7 +226,7 @@ export default {
         height: 100vmin;
         display: flex;
     }
-    .avaliacoes {
+    .avaliar {
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -204,7 +240,7 @@ export default {
         align-items: center;
     }
     .estrelas {
-        display: inline-flex;
+        display: flex;
         height: auto;
     }
     .btnStar {
@@ -251,7 +287,7 @@ export default {
         border: 1px solid black;
         border-radius: 10px;
         width: 100%;
-        height: 65%;
+        height: 80%;
     }
     .botao {
         font-size: 16pt;
@@ -267,8 +303,26 @@ export default {
     #label {
         text-align: left;
     }
-    .status {
-        color: red;
-        height: 5%;
+    .avaliacoes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(20%, auto));
+        column-gap: 1%;
+        row-gap: 1%;
+        width: 90%;
+        height: 75%;
+
+        justify-content: center;
+    }
+    .boxAvaliacao {
+        font-size: 12pt;
+        border: 1px solid black;
+        word-wrap: break-word;
+    }
+
+    .tentativa {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
     }
 </style>

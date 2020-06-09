@@ -18,16 +18,16 @@
 
 
           
-          <router-link :to="'/home'" class="button" exact>Home</router-link>
+          <router-link :to="'/home'" class="button" >Home</router-link>
 
-          <router-link :to="'/usuario/login'" class="button" exact v-if="!conexao">Login</router-link>
-          <router-link :to="'/usuario/'+usuario.id" class="button" exact v-if="conexao">Sua Página</router-link>
+          <router-link :to="'/usuario/login'" class="button"  v-if="!conexao">Login</router-link>
+          <router-link :to="'/usuario/'+usuario.id" class="button"  v-if="conexao">Sua Página</router-link>
 
-          <router-link :to="'/contato'" class="button" exact>Contato</router-link> <!---->
+          <router-link :to="'/contato'" class="button" >Contato</router-link> <!---->
       
       </ul>
       <div class="menuUltimo">
-        <router-link :to="'/mapa'" class="menu-buttom" exact>Abrir o Chizu</router-link>
+        <router-link :to="'/mapa'" class="menu-buttom" >Abrir o Chizu</router-link>
         <div class="usuario" v-if="conexao">
           {{usuario.nome}}
           {{usuario.sobreNome}}
@@ -54,6 +54,7 @@ export default {
         store.dispatch('setConexao', false);
         this.usuario = {};
         this.conexao = false;
+        this.$router.push("/home");
       }
     }
   }
@@ -75,7 +76,7 @@ export default {
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
-    flex: 70%;
+    flex: 75%;
     margin-bottom: 1%;
     margin-top: 1%;
   }
@@ -97,8 +98,10 @@ export default {
     transition: 0.5s;
   }
   .menuUltimo {
-    flex: 30%;
-    display: inline-flex;
+    flex: 35%;
+    display: flex;
+    height: 100%;
+    width: 100%;
     justify-content: center;
     align-items: center;
     background-color: transparent;
@@ -119,6 +122,7 @@ export default {
   }
   .button:hover {
     color: white;
+    cursor: pointer;
   }
   .icones {
     background-color: transparent;
