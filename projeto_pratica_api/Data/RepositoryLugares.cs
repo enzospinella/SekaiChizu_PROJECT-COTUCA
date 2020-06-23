@@ -13,14 +13,14 @@ namespace projeto_pratica_api.Data
             this.Context = context;
         }
 
-        public async Task<MM_Lugares> GetAllLugaresAsyncByCodPais(int codPais)
+        public async Task<MM_Lugares[]> GetAllLugaresAsyncByCodPais(int codPais)
         {
            IQueryable<MM_Lugares> consultaLugares = this.Context.MM_Lugares;
 
            consultaLugares = consultaLugares.OrderBy(l => l.Id)
                                           .Where(lugar => lugar.IdPais == codPais);
 
-            return await consultaLugares.FirstOrDefaultAsync();
+            return await consultaLugares.ToArrayAsync();
         }
     }
 }

@@ -1,6 +1,5 @@
 var path = require('path')
 var webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -51,10 +50,10 @@ module.exports = {
     loaders: {
       css: ExtractTextPlugin.extract('css')
     }
-  },*/
+  },
   plugins: [
-      new VueLoaderPlugin()
-  ],
+      new ExtractTextPlugin('styles.css')
+  ],*/
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'

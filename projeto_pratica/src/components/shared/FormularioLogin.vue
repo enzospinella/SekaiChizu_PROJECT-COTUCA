@@ -7,22 +7,18 @@
             <form> 
                 <h1>Login</h1> 
 
-                <p style="color: red">
-                    
-                </p>
-
                 <p> 
-                    <label for="email-login">Seu E-Mail</label>
+                    <label for="email-login">E-MAIL: </label>
                     <input id="email-login" v-model="email" required="required" type="text" placeholder="ex. mateus.vazquez@gmail.com"/>
                 </p>
                 
                 <p> 
-                    <label for="senha_login">Sua Senha</label>
+                    <label for="senha_login">SENHA: </label>
                     <input id="senha_login" v-model="senha" required="required" type="password" placeholder="ex. senha" /> 
                 </p>
                 
                 <p> 
-                    <button v-on:click="logar" type="button">Logar</button>
+                    <button v-on:click="logar" type="button">LOGAR</button>
                 </p>
                 
                 <p class="link">
@@ -81,7 +77,7 @@ export default {
         }
         if (this.entrou)
         {
-          this.$router.push('/usuario/'+ this.codUsuario);
+          this.$router.push('/usuario');
           //https://michaelnthiessen.com/redirect-in-vue/
         }
       },

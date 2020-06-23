@@ -248,12 +248,12 @@ export default {
         text-decoration: none;
         border: none;
         border-radius: 10px;
+        cursor: pointer;
 
         transition: 1s;
     }
     .btnStar:hover {
         background-color: white;
-        cursor: pointer;
     }
     .btnStar:focus {
         outline: 0px auto;

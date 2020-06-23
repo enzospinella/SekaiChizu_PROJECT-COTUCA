@@ -18,19 +18,24 @@ namespace projeto_pratica_api.Data
            this.Context.Add(entity);
         }
 
+        public void Delete<T>(T entity) where T : class
+        {
+           this.Context.Remove(entity);
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
            return (await this.Context.SaveChangesAsync() > 0);
         }
 
-        public async Task<MM_Historico> GetAllHistoricosAsyncByCodUsuario(int codUsuario)
+        public async Task<MM_Historico[]> GetAllHistoricosAsyncByCodUsuario(int codUsuario)
         {
            IQueryable<MM_Historico> consultaHistoricos = this.Context.MM_Historico;
 
            consultaHistoricos = consultaHistoricos.OrderBy(h => h.Id)
                                           .Where(historico => historico.IdUsuario == codUsuario);
 
-            return await consultaHistoricos.FirstOrDefaultAsync();
+            return await consultaHistoricos.ToArrayAsync();
         }
 
         public async Task<MM_Historico> GetAllHistoricosAsyncByCod(int cod)

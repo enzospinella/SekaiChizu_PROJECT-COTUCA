@@ -52,14 +52,14 @@ namespace projeto_pratica_api.Data
             return await consultaAvaliacoes.FirstOrDefaultAsync();
         }
 
-        public async Task<MM_Avaliacoes> GetAllAvaliacoesAsyncByCodUsuario(int codUsuario)
+        public async Task<MM_Avaliacoes[]> GetAllAvaliacoesAsyncByCodUsuario(int codUsuario)
         {
            IQueryable<MM_Avaliacoes> consultaAvaliacoes = this.Context.MM_Avaliacoes;
 
            consultaAvaliacoes = consultaAvaliacoes.OrderBy(a => a.Id)
                                           .Where(avaliacao => avaliacao.IdUsuario == codUsuario);
 
-            return await consultaAvaliacoes.FirstOrDefaultAsync();
+            return await consultaAvaliacoes.ToArrayAsync();
         }
     }
 }

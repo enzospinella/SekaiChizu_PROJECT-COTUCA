@@ -24,7 +24,7 @@ export default {
         for(var estrela of this.estrelas)
         {
             var qtd = this.qtdEstrelas;
-            if(qtd > estrela.id)
+            if(qtd >= estrela.id)
                 estrela.url = "../../src/assets/002-star-1.png";
             else if(qtd == (estrela.id+0.5) || qtd == (estrela.id-0.5))
                 estrela.url = "../../src/assets/003-rating.png";

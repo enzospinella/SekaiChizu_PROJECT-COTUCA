@@ -9,6 +9,7 @@ import Cadastro from './components/shared/FormularioCadastro.vue'
 import Contato from './components/Contato.vue'
 import Mapa from './components/Mapa1.vue'
 import pagPais from './components/PaginaDoPais.vue';
+import pagUsu from './components/PaginaDoUsuario.vue';
 /*
 
 A propriedade path sera usada para determinar o lugar de cada pagina (caminho na url)
@@ -22,6 +23,7 @@ export const routes = [
     { path: '/home', component: Home, titulo: 'Home' },
     { path: '/mapa', component: Mapa, titulo: 'Mapa'},
     { path: '/mapa/paises/:id/:nome', component: pagPais, titulo: 'PaginaPais'},
+    { path: '/usuario', component: pagUsu, titulo: 'PaginaUsuario'},
     { path: '/usuario/login', component: Login, titulo: 'Login'},
     { path: '/usuario/cadastro', component: Cadastro, titulo: 'Cadastro'},
     { path: '/contato', component: Contato, titulo: 'Contato' },

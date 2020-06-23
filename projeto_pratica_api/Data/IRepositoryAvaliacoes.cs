@@ -12,6 +12,6 @@ namespace projeto_pratica_api.Data
         Task<bool> SaveChangesAsync();
         Task<MM_Avaliacoes[]> GetAllAvaliacoesAsync();
         Task<MM_Avaliacoes> GetAllAvaliacoesAsyncByCod(int cod);
-        Task<MM_Avaliacoes> GetAllAvaliacoesAsyncByCodUsuario(int codUsuario);
+        Task<MM_Avaliacoes[]> GetAllAvaliacoesAsyncByCodUsuario(int codUsuario);
     }
 }

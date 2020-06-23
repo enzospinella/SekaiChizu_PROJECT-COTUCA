@@ -5,6 +5,6 @@ namespace projeto_pratica_api.Data
 {
     public interface IRepositoryLugares
     {
-        Task<MM_Lugares> GetAllLugaresAsyncByCodPais(int codPais);
+        Task<MM_Lugares[]> GetAllLugaresAsyncByCodPais(int codPais);
     }
 }

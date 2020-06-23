@@ -21,14 +21,15 @@
           <router-link :to="'/home'" class="button" >Home</router-link>
 
           <router-link :to="'/usuario/login'" class="button"  v-if="!conexao">Login</router-link>
-          <router-link :to="'/usuario/'+usuario.id" class="button"  v-if="conexao">Sua Página</router-link>
 
           <router-link :to="'/contato'" class="button" >Contato</router-link> <!---->
+          <router-link :to="'/usuario'" class="button"  v-if="conexao"><unicon name="user-circle" fill="white"/></router-link>
       
       </ul>
       <div class="menuUltimo">
         <router-link :to="'/mapa'" class="menu-buttom" >Abrir o Chizu</router-link>
         <div class="usuario" v-if="conexao">
+        
           {{usuario.nome}}
           {{usuario.sobreNome}}
           <button  class="icones" v-on:click="deslogar"><unicon name="arrow-to-right" fill="white"/></button>

@@ -16,6 +16,29 @@ namespace projeto_pratica_api.Controllers
             this.Repo = repo;
         }
 
+        [HttpDelete("{codHistorico}")]
+        public async Task<IActionResult> delete(int codHistorico)
+        {
+            try
+            {
+                var usuario = await this.Repo.GetAllHistoricosAsyncByCod(codHistorico);
+                if (usuario == null)
+                {
+                    //método do EF
+                    return NotFound();
+                }
+
+                this.Repo.Delete(usuario);
+                await this.Repo.SaveChangesAsync();
+                return NoContent();
+            }
+            catch 
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+            //return BadRequest();
+        }
+
         [HttpGet("{codUsuario}")]
         public async Task<IActionResult> Get(int codUsuario)
         {

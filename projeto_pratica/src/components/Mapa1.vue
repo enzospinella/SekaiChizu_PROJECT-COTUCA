@@ -3,15 +3,7 @@
           <div class='wrapper'>
             <ejs-maps :zoomSettings='zoomSettings' :height='height' :width='width' :mapsAreaSettings='mapsAreaSettings' :itemSelection='procurarPaisPeloClick'>
                 <e-layers>
-                    <e-layer :shapeData='shapeData' :shapeSettings='shapeSettings' :selectionSettings='selectionSettings' :markerClusterSettings='markerClusterSettings' :markerSettings='markerSettings'>
-                        <e-markerSettings>
-                            <e-markerSetting visible=true 
-                            shape="Circle"></e-markerSetting>
-                            <e-markerSetting visible= true :template='contentTemplate' :dataSource ="dataSource1" animationDuration = 0 ></e-markerSetting>
-                            <e-markerSetting visible= true :template='contentTemplate1' :dataSource ="dataSource2" animationDuration = 0 ></e-markerSetting>
-                            <e-markerSetting visible= true :template='contentTemplate2' :dataSource ="dataSource3" animationDuration = 0 ></e-markerSetting>
-                             
-                        </e-markerSettings>
+                    <e-layer :shapeData='shapeData' :shapeSettings='shapeSettings' :selectionSettings='selectionSettings'>
                     </e-layer>
                 </e-layers>
             </ejs-maps>
@@ -63,29 +55,6 @@ export default {
                 width: 40,
                 labelStyle : { color: 'white'},
             },
-            markerSettings: [
-                {
-                    dataSource: 
-                    [
-                        { latitude: 49.95121990866204, longitude: 87.468749999999998, name:'Europe' },
-                        { latitude: 49.95121990866204, longitude: 45.468749999999998, name:'Europe' },
-                        { latitude: 49.95121990866204, longitude: 32.468749999999998, name:'Europe' },
-                        { latitude: 49.95121990866204, longitude: 99.468749999999998, name:'Europe' },
-                        { latitude: 49.95121990866204, longitude: 17.468749999999998, name:'Europe' },
-                        { latitude: 49.95121990866204, longitude: 18.468749999999998, name:'Europe' },
-                        { latitude: 49.95121990866204, longitude: 19.468749999999998, name:'Europe' },
-                        { latitude: 37.6276571, longitude: -122.4276688, name: 'San Bruno', color: 'black' },
-                        { latitude: 33.5302186, longitude: -117.7418381, name: 'Laguna Niguel', color: 'black' },
-                        { latitude: 40.7424509, longitude: -74.0081468, name: 'New York', color: 'black' },
-                        { latitude: 49.95121990866204, longitude: 18.468749999999998, name:'Europe', color:'red', shape:'Triangle' },
-                        { latitude: 59.88893689676585, longitude: -109.3359375, name:'North America', color:'blue', shape:'Pentagon' },
-                        { latitude: -6.64607562172573, longitude: -55.54687499999999, name:'South America', color:'green', shape:'InvertedTriangle' }
-                    ],
-                    visible: true,
-                    shapeValuePath:'shape',
-                    colorValuePath:'color',
-                },
-            ],
             width: '100%',
             height: '100%',
             shapeSettings: {

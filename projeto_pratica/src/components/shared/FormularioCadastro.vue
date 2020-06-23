@@ -12,27 +12,27 @@
           </p>
 
           <p> 
-            <label for="nome_cad">Seu nome</label>
+            <label for="nome_cad">NOME: </label>
             <input id="nome_cad" v-model="nome" required="required" type="text" placeholder="nome" />
           </p>
 
           <p> 
-            <label for="sobreNome_cad">Seu sobrenome</label>
+            <label for="sobreNome_cad">SOBRENOME: </label>
             <input id="sobreNome_cad" v-model="sobreNome" required="required" type="text" placeholder="Sobrenome" />
           </p>
            
           <p> 
-            <label for="email_cad">Seu e-mail</label>
+            <label for="email_cad">E-MAIL: </label>
             <input id="email_cad" v-model="email" required="required" type="email" placeholder="enzo.spinella@gmail.com"/> 
           </p>
            
           <p> 
-            <label for="senha_cad">Sua senha</label>
+            <label for="senha_cad">SENHA: </label>
             <input id="senha_cad" v-model="senha" required="required" type="password" placeholder="ex. 1234"/>
           </p>
            
           <p> 
-            <button v-on:click="cadastrar" type="button">Cadastrar</button>
+            <button v-on:click="cadastrar" type="button">CADASTRAR</button>
           </p>
            
           <p class="link">  
@@ -53,7 +53,7 @@ import {store} from '../../vuex'
 export default {
     data() {
         return{
-        usuarios: [],
+        usuarios: store.getters["getUsuarios"],
         entrou: false,
         email: "",
         senha: "",
@@ -74,17 +74,21 @@ export default {
          
           if(usuario.email == this.email)
           {
-            this.erroNoCadastro = "Este E-mail já foi cadastrado, insira outro";
+            this.erroNoCadastro = "Este E-mail já foi cadastrado, insira outro".toUpperCase();
             certo = false;
             return;
           }
           
           if(usuario.nome == this.nome && usuario.sobreNome == this.sobreNome)
           {
-            this.erroNoCadastro = "Este Nome já está em uso, escolha outro";
+            this.erroNoCadastro = "Este Nome já está em uso, escolha outro".toUpperCase();
             certo = false;
             return;
           }
+        }
+        if(!this.validarEmail(this.email)) {
+          this.erroNoCadastro = "E-Mail Inválido!".toUpperCase();
+          certo = false;
         }
         if(certo)
         {
@@ -95,15 +99,16 @@ export default {
             senha: this.senha,
             email: this.email
           })
-          .then(response => {this.$router.push('/usuario/'+response.data.id); this.setUsuarioConectado(response.data)}, err => console.log(err));
+          .then(response => {this.$router.push('/usuario'); this.setUsuarioConectado(response.data)}, err => console.log(err));
         }
-      },
-      setUsuarios: function(data) {
-          store.dispatch('setUsuarios', data);
       },
       setUsuarioConectado: function(data) {
         store.dispatch('setUsuarioConectado', data);
         store.dispatch('setConexao', true);
+      },
+      validarEmail: function(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
       }
     },
 }

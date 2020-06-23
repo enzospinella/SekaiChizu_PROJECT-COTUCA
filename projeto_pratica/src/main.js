@@ -8,7 +8,7 @@ import {store} from './vuex';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Unicon from 'vue-unicons'
-import { uniArrowToRight } from 'vue-unicons/src/icons'
+import { uniArrowToRight, uniAngleRightB, uniAngleLeftB, uniUserCircle, uniUserSquare, uniPaypal, uniBackward, uniTrashAlt, uniCopyright  } from 'vue-unicons/src/icons'
 
 
 
@@ -22,7 +22,7 @@ Vue.use(VueRouter);
 Vue.use(VueAxios, axios)
 Vue.use(MapsPlugin);
 
-Unicon.add([uniArrowToRight])
+Unicon.add([uniArrowToRight, uniAngleRightB, uniAngleLeftB, uniUserCircle, uniUserSquare, uniPaypal, uniBackward, uniTrashAlt, uniCopyright ])
 Vue.use(Unicon)
 
 
