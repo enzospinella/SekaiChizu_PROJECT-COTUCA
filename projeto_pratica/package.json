@@ -21,7 +21,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "es6-promise": "^4.2.8",
     "mapbox-gl": "^1.11.0",
     "npx": "^10.2.2",
